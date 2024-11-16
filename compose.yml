@@ -1,0 +1,30 @@
+services:
+    mysql:
+        container_name: mysql_djangopreneur_container
+        image: mariadb:10.6
+        working_dir: /app
+        command: 
+            - '--character-set-server=utf8mb4'
+            - '--collation-server=utf8mb4_unicode_ci'
+        restart: always
+        ports:
+            - 58901:3306
+        environment:
+            - MYSQL_DATABASE=djangopreneur
+            - MYSQL_ROOT_PASSWORD=djangopreneur
+            - MYSQL_USER=djangopreneur
+            - MYSQL_PASSWORD=djangopreneur
+        volumes:
+            - mysql_djangopreneur_volume:/var/lib/mysql
+
+    redis:
+        image: docker.io/redis:7
+        container_name: redis_djangopreneur_container
+        ports:
+            - 55379:6379
+        volumes:
+            - redis_djangopreneur_volume:/data
+
+volumes:
+    mysql_djangopreneur_volume:
+    redis_djangopreneur_volume:
